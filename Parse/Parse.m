@@ -53,7 +53,7 @@ static ParseClientConfiguration *currentParseConfiguration_;
 #pragma mark - Connect
 ///--------------------------------------
 
-+ (void)setApplicationId:(NSString *)applicationId clientKey:(NSString *)clientKey {
++ (void)setApplicationId:(NSString *)applicationId clientKey:(nullable NSString *)clientKey {
     currentParseConfiguration_.applicationId = applicationId;
     currentParseConfiguration_.clientKey = clientKey;
     currentParseConfiguration_.server = [PFInternalUtils parseServerURLString]; // TODO: (nlutsenko) Clean this up after tests are updated.
@@ -68,8 +68,6 @@ static ParseClientConfiguration *currentParseConfiguration_;
 + (void)initializeWithConfiguration:(ParseClientConfiguration *)configuration {
     PFConsistencyAssert(configuration.applicationId.length != 0,
                         @"You must set your configuration's `applicationId` before calling %s!", __PRETTY_FUNCTION__);
-    PFConsistencyAssert(configuration.clientKey.length != 0,
-                        @"You must set your configuration's `clientKey` before calling %s!", __PRETTY_FUNCTION__);
     PFConsistencyAssert(![PFApplication currentApplication].extensionEnvironment ||
                         configuration.applicationGroupIdentifier == nil ||
                         configuration.containingApplicationBundleIdentifier != nil,
